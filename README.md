@@ -42,13 +42,15 @@ A decentralized escrow system where clients deposit MNEE tokens (ERC20) that are
 mnee-gig-escrow/
 ├── src/
 │   └── GigEscrow.sol          # Main escrow contract
+|   └── MockMNEE.sol           # Mock MNEE token for Demo
 ├── test/
 │   ├── GigEscrow.t.sol        # Comprehensive test suite
 │   └── mocks/
 │       ├── MockERC20.sol      # Mock MNEE token
 │       └── MockFunctionsRouter.sol  # Mock Chainlink Router
 ├── script/
-│   └── Deploy.s.sol           # Deployment scripts
+│   └── Deploy.s.sol           # Deployment scripts for the Escrow Contract
+|   └── DeployMockMNEE.s.sol   # Deployment script for the Mock MNEE Token on testnets 
 ├── functions/
 │   └── github-check.js        # Chainlink Functions source
 ├── foundry.toml               # Foundry configuration
@@ -106,8 +108,11 @@ forge coverage
 anvil
 
 # Deploy with local script
+forge script script/DeployMockMNEE.s.sol:DeployMockMNEE --rpc-url http://localhost:8545 --broadcast
 forge script script/Deploy.s.sol:DeployGigEscrowLocal --rpc-url http://localhost:8545 --broadcast
 ```
+
+
 
 ### Testnet (Sepolia)
 
@@ -119,6 +124,7 @@ export CHAINLINK_SUBSCRIPTION_ID="your_subscription_id"
 export MNEE_TOKEN_ADDRESS="your_mnee_token_address"
 
 # Deploy
+forge script script/DeployMockMNEE.s.sol:DeployMockMNEE --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY 
 forge script script/Deploy.s.sol:DeployGigEscrow --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify
 ```
 
@@ -236,6 +242,39 @@ const response = await Functions.makeHttpRequest({
 });
 return Functions.encodeUint256(response.data.merged ? 1 : 0);
 ```
+
+## 🚀 Mainnet Deployment Guide
+
+For this hackathon submission, we used a **Mock MNEE Token** on Sepolia Testnet to simulate the payment flow.
+
+To deploy this project on **Ethereum Mainnet** using the official MNEE Stablecoin, follow these simple steps:
+
+1. **Locate the Official MNEE Contract:**
+The official MNEE token address on Ethereum Mainnet is:
+`0x8ccedbae4916b79da7f3f612efb2eb93a2bfd6cf`
+2. **Update Configuration:**
+Modify your `.env` file to point to the live Mainnet address instead of the Mock address:
+```bash
+# .env
+MNEE_TOKEN_ADDRESS=0x8ccedbae4916b79da7f3f612efb2eb93a2bfd6cf
+```
+
+
+3. **Deploy:**
+Run the deployment script targeting Mainnet. The script is already configured to detect the chain ID and use the address provided in the environment variable.
+```bash
+forge script script/Deploy.s.sol:DeployGigEscrow --rpc-url $MAINNET_RPC_URL --broadcast
+```
+
+
+
+---
+
+## 📜 Contract Addresses (Sepolia)
+
+* **GigEscrow:** `0x...` (Update after deployment)
+* **Mock MNEE:** `0x...` (Update after deployment)
+
 
 ## 🤝 Contributing
 
