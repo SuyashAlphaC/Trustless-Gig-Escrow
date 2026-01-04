@@ -272,8 +272,8 @@ forge script script/Deploy.s.sol:DeployGigEscrow --rpc-url $MAINNET_RPC_URL --br
 
 ## 📜 Contract Addresses (Sepolia)
 
-* **GigEscrow:** `0x...` (Update after deployment)
-* **Mock MNEE:** `0x...` (Update after deployment)
+* **GigEscrow:** `0x74F93b26a93B6B7d72cD4bd61c922eb1c8fd393f`
+* **Mock MNEE:** `0xAE11Ef2C367644Ba662c7662237FC0349A7e4211`
 
 
 ## 🤝 Contributing
