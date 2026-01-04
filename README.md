@@ -69,7 +69,7 @@ mnee-gig-escrow/
 
 ```bash
 # Clone the repository
-cd mnee-gig-escrow
+cd trustless-gig-escrow
 
 # Install dependencies
 forge install
